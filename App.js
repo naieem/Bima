@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from "./Screens/home";
 import Registration from "./Screens/registration";
 import PDetails from "./Screens/premiumDetails";
-import { createBottomTabNavigator, createAppContainer,createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 
 // export default function App() {
@@ -24,60 +24,46 @@ import { Icon } from 'native-base';
 //   },
 // });
 console.disableYellowBox = true;
+
 const TabNavigator = createBottomTabNavigator({
   Home: Home,
   Registration: Registration
 },
-{
-  defaultNavigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ focused, horizontal, tintColor }) => {
-      const { routeName } = navigation.state;
-      let iconName;
-      if (routeName === 'Home') {
-        iconName = "home";
-        // Sometimes we want to add badges to some icons. 
-        // You can check the implementation below.
-        // IconComponent = HomeIconWithBadge; 
-      } else if (routeName === 'Registration') {
-        iconName = "add";
-      }
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = "home";
+          // Sometimes we want to add badges to some icons. 
+          // You can check the implementation below.
+          // IconComponent = HomeIconWithBadge; 
+        } else if (routeName === 'Registration') {
+          iconName = "add";
+        }
 
-      // You can return any component that you like here!
-      return (
-        <View style={{ width: 24, height: 24, margin: 5 }}>
-          <Icon name={iconName} />
-          <View style={{
-            // If you're using react-native < 0.57 overflow outside of the parent
-            // will not work on Android, see https://git.io/fhLJ8
-            position: 'absolute',
-            right: -15,
-            top: -3,
-            backgroundColor: 'red',
-            borderRadius: 10,
-            width: 20,
-            height: 20,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>10</Text>
+        // You can return any component that you like here!
+        return (
+          <View style={{ width: 24, height: 24, margin: 5 }}>
+            <Icon name={iconName} />
           </View>
-        </View>
-      );
+        );
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
     },
-  }),
-  tabBarOptions: {
-    activeTintColor: 'tomato',
-    inactiveTintColor: 'gray',
-  },
-});
+  });
 
 const AppNavigator = createStackNavigator({
   Start: TabNavigator,
-  PDetails:PDetails
+  PDetails: PDetails
 },
-{
-  headerMode: 'none',
-});
+  {
+    headerMode: 'none',
+  });
 
 
 
