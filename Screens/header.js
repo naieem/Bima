@@ -12,11 +12,17 @@ class BimaHeader extends Component {
     componentDidMount() {
         var itemsRef = db.ref('/items');
         itemsRef.on('value', (snapshot)=> {
-          // console.log(snapshot.val());
-          var itemCount =Object.values(snapshot.val());
-          this.setState({
-            totalCount:itemCount.length
-          });
+          var items=snapshot.val();
+          if(items){
+            var itemCount =Object.values(snapshot.val());
+            this.setState({
+              totalCount:itemCount.length
+            });
+          }else{
+            this.setState({
+                totalCount:0
+              });
+          }
         });
       }
     render() {
