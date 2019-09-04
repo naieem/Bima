@@ -374,7 +374,7 @@ class registration extends Component {
                 </View>
               </Form>
               <Button block info style={{marginTop:50,flex:1,alignContent:"center"}} onPress={this.saveUser}>
-                <Text>Register</Text>
+                <Text>Submit</Text>
               </Button>
             </Content>          
           </ImageBackground>

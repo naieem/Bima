@@ -56,7 +56,7 @@ class Home extends Component {
                     {this.state.motorCycle.map((motor)=>
                         <ListItem key={motor.value} onPress={() => this.props.navigation.navigate('PDetails',{item: motor.value})}>
                             <Left>
-                                <Text style={{color:"#fff"}}>{motor.title}</Text>
+                                <Text style={{color:"#fff",fontSize:16}}>{motor.title}</Text>
                             </Left>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -69,7 +69,7 @@ class Home extends Component {
                     {this.state.privateVehicle.map((motor)=>
                         <ListItem key={motor.value} onPress={() => this.props.navigation.navigate('PDetails',{item: motor.value})}>
                             <Left>
-                                <Text style={{color:"#fff"}}>{motor.title}</Text>
+                                <Text style={{color:"#fff",fontSize:16}}>{motor.title}</Text>
                             </Left>
                             <Right>
                                 <Icon name="arrow-forward" />
@@ -79,13 +79,13 @@ class Home extends Component {
                 </List>
                 <View style={{paddingLeft:10,marginBottom:10}}>
                     <TouchableOpacity style={styles.margin10}>
-                        <Text style={{fontWeight:"bold",color:"#fff"}}>N.B : Exclusion of special periis</Text>
+                        <Text style={{fontWeight:"bold",color:"#fff",fontSize:16}}>N.B : Exclusion of special periis</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.margin10}>
-                        <Text style={{fontWeight:"bold",color:"#fff"}}>Earchquake (Fire and shock damage) & Flood, Typhoon, Hurricane, storm, Tempest, Cyclone, Hailstorm,Frost</Text>
+                        <Text style={{fontWeight:"bold",color:"#fff",fontSize:16}}>Earchquake (Fire and shock damage) & Flood, Typhoon, Hurricane, storm, Tempest, Cyclone, Hailstorm,Frost</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.margin10}>
-                        <Text style={{color:"#fff"}}>If any insured wishes to bear the liablities for the loss caused by the above noted periis, then the insured shall be allowed
+                        <Text style={{color:"#fff",fontSize:16}}>If any insured wishes to bear the liablities for the loss caused by the above noted periis, then the insured shall be allowed
                         a rebate of (.25% + .25%)=.50% of F.I.V (full insured value of the vehicle)</Text>
                     </TouchableOpacity>
                 </View>

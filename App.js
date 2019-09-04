@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from "./Screens/home";
 import Registration from "./Screens/registration";
 import PDetails from "./Screens/premiumDetails";
+import OrderList from "./Screens/orderList";
+import OrderDetails from "./Screens/orderDetails";
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 
@@ -27,7 +29,8 @@ console.disableYellowBox = true;
 
 const TabNavigator = createBottomTabNavigator({
   Home: Home,
-  Registration: Registration
+  List:OrderList,
+  Order: Registration
 },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -36,10 +39,12 @@ const TabNavigator = createBottomTabNavigator({
         let iconName;
         if (routeName === 'Home') {
           iconName = "home";
+        } if (routeName === 'List') {
+          iconName = "list";
           // Sometimes we want to add badges to some icons. 
           // You can check the implementation below.
           // IconComponent = HomeIconWithBadge; 
-        } else if (routeName === 'Registration') {
+        }else if (routeName === 'Order') {
           iconName = "add";
         }
 
@@ -59,7 +64,8 @@ const TabNavigator = createBottomTabNavigator({
 
 const AppNavigator = createStackNavigator({
   Start: TabNavigator,
-  PDetails: PDetails
+  PDetails: PDetails,
+  OrderDetails:OrderDetails
 },
   {
     headerMode: 'none',
