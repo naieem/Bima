@@ -45,9 +45,8 @@ class Home extends Component {
     const resizeMode = 'cover';
     const imgUrl=require('../assets/bg.png');
     return (
-      <Container>
-          <BimaHeader back={false}></BimaHeader>
-          <ImageBackground source={imgUrl}  style={{ flex: 1}} resizeMode={resizeMode}>
+      <Container style={styles.container}>
+            <BimaHeader back={false}></BimaHeader>
             <Content padder>
                 <List>
                     <ListItem itemDivider>
@@ -90,7 +89,6 @@ class Home extends Component {
                     </TouchableOpacity>
                 </View>
             </Content>        
-          </ImageBackground>
       </Container>
     );
   }
@@ -99,7 +97,10 @@ class Home extends Component {
 const styles = StyleSheet.create({
     margin10:{
         marginTop:10
-    }
+    },
+    container: {
+        backgroundColor: "#16a085",
+      },
   })
   
 

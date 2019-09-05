@@ -26,9 +26,8 @@ class orderDetais extends Component {
     const imgUrl=require('../assets/bg.png');
     const {item}=this.state;
     return (
-        <Container>
+        <Container style={styles.container}>
         <BimaHeader back={true}></BimaHeader>
-        <ImageBackground source={imgUrl}  style={{ flex: 1}} resizeMode={resizeMode}>
           <Content padder>
           <Text style={{textAlign:"center",fontWeight:"bold",fontSize:16,color:"#fff"}}>Order Details</Text>
             <Card>
@@ -74,10 +73,14 @@ class orderDetais extends Component {
                 </CardItem>
             </Card>
           </Content>        
-        </ImageBackground>
+        
     </Container>
     );
   }
 }
-
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#16a085",
+  }
+});
 export default orderDetais;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet,TouchableOpacity, Text, View,ImageBackground} from 'react-native'
-import { Container,List, ListItem, Thumbnail, Left,Right, Content, Card, CardItem,Icon, Body } from 'native-base';
+import { StyleSheet, Text, View,ImageBackground} from 'react-native'
+import { Container,List, ListItem, Left,Right, Content,Icon } from 'native-base';
 import { db } from "../config";
 import BimaHeader from "./header";
 class orderList extends Component {
@@ -38,9 +38,8 @@ class orderList extends Component {
     const imgUrl=require('../assets/bg.png');
     const {items}=this.state;
     return (
-        <Container>
+        <Container style={styles.container}>
         <BimaHeader back={false}></BimaHeader>
-        <ImageBackground source={imgUrl}  style={{ flex: 1}} resizeMode={resizeMode}>
           <Content padder>
           {!items.length && <Text style={{textAlign:"center",fontWeight:"bold",fontSize:16,color:"#fff"}}>Sorry No Order Found</Text>}
           {items.length > 0 && 
@@ -60,11 +59,14 @@ class orderList extends Component {
                     </List>
             </View>
           }
-          </Content>        
-        </ImageBackground>
+          </Content>
     </Container>
     );
   }
 }
-
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#16a085",
+  }
+});
 export default orderList;

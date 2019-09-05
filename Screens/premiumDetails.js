@@ -19,9 +19,8 @@ class PremiumDetails extends Component {
     const resizeMode = 'cover';
     const imgUrl=require('../assets/bg.png');
     return (
-      <Container>
+      <Container style={styles.container}>
           <BimaHeader back={true}></BimaHeader>
-          <ImageBackground source={imgUrl}  style={{ flex: 1}} resizeMode={resizeMode}>
             <Content padder>
               <Card transparent>
                 <CardItem bordered>
@@ -48,13 +47,16 @@ class PremiumDetails extends Component {
                 <Text>Register</Text>
               </Button>
             </Content>          
-          </ImageBackground>
+          
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#16a085",
+  },
     margin10:{
         marginTop:10
     }
