@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Alert,ImageBackground,StyleSheet} from 'react-native';
-import { Container,Button, Content, Body,Form, Item, Input, Label, View } from 'native-base';
+import { Text, Alert,TouchableHighlight,StyleSheet} from 'react-native';
+import { Container, Content, Input, View } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -447,9 +447,10 @@ class registration extends Component {
                       onDateChange={(date) => {this.handleChange('InTo',date)}}
                     />
                   </View>
-                  <Button style={styles.button} onPress={this.saveUser}>
-                    <Text>Submit</Text>
-                  </Button>
+
+                  <TouchableHighlight style={styles.button} onPress={this.saveUser}>
+                      <Text style={styles.buttonText}>Submit</Text>
+                  </TouchableHighlight>
               </View>
             </Content>          
       </Container>
@@ -474,31 +475,17 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.2)",
     alignSelf: "stretch",
     marginTop: 10,
-    color:"#fff",
     justifyContent: "center",
     paddingVertical: 15,
     marginBottom: 10,
     marginTop:10
   },
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: 'purple',
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+  buttonText: {
+    fontSize: 18,
+    alignSelf: "center",
+    textAlign: "center",
+    color: "#FFF",
+    fontWeight: "700"
   },
 });
 
