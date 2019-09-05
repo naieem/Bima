@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from "./Screens/home";
-import Registration from "./Screens/registration";
+import NewOrder from "./Screens/newOrder";
 import PDetails from "./Screens/premiumDetails";
 import OrderList from "./Screens/orderList";
 import OrderDetails from "./Screens/orderDetails";
+import Registration from "./Screens/registration";
+import Login from "./Screens/login";
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 
@@ -30,7 +32,7 @@ console.disableYellowBox = true;
 const TabNavigator = createBottomTabNavigator({
   Home: Home,
   List:OrderList,
-  Order: Registration
+  Order: NewOrder
 },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -63,6 +65,8 @@ const TabNavigator = createBottomTabNavigator({
   });
 
 const AppNavigator = createStackNavigator({
+  Login:Login,
+  Registration:Registration,
   Start: TabNavigator,
   PDetails: PDetails,
   OrderDetails:OrderDetails
