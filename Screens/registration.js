@@ -6,12 +6,13 @@ import {
   TextInput,
   TouchableHighlight,
   Image,
+  Alert,
   KeyboardAvoidingView,
   AsyncStorage
 } from "react-native";
-import { Container, Content, Form, Item, Input } from 'native-base';
-
-
+import { Container, Content, Toast, Item, Input } from 'native-base';
+import {auth} from "../config";
+import roles from './userroles';
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +22,8 @@ export default class Register extends Component {
       password: "",
       password_confirmation: ""
     };
+    this.onRegisterPress=this.onRegisterPress.bind(this);
   }
-
   static navigationOptions = {
     headerStyle: {
       backgroundColor: "#16a085",
@@ -30,15 +31,55 @@ export default class Register extends Component {
     }
   };
 
-  async onRegisterPress() {
-    const { email, password, name } = this.state;
+  onRegisterPress() {
+    const { email, password, name,password_confirmation } = this.state;
     console.log(email);
     console.log(name);
     console.log(password);
-    await AsyncStorage.setItem("email", email);
-    await AsyncStorage.setItem("name", name);
-    await AsyncStorage.setItem("password", password);
-    this.props.navigation.navigate("Boiler");
+    // await AsyncStorage.setItem("email", email);
+    // await AsyncStorage.setItem("name", name);
+    // await AsyncStorage.setItem("password", password);
+    if(password_confirmation != password){
+      Alert.alert("Password did not match");
+    }else{
+      auth.createUserWithEmailAndPassword(email, password).then(()=>{
+        var user = auth.currentUser;
+        if(user){
+          if(!user.emailVerified){
+            user.displayName=this.state.name;
+            user.providerData[0]['providerId']=roles.normal;
+            user.sendEmailVerification().then(()=> {
+              console.log(user);
+              console.log("verification link sent to mail");
+              // Alert.alert("User created succesfully.Please check verification mail");
+              Toast.show({
+                text: 'User created succesfully.Please check verification mail',
+                buttonText: 'Okay'
+              });
+              user.updateProfile({
+                displayName:this.state.name,
+                isAnonymous:true
+              }).then(()=> {
+                console.log("Profile Update done");
+                auth.signOut().then(()=>{
+                  console.log("Signout done");
+                }).catch(()=>{
+                  console.log("Error in signout");
+                });
+              }).catch(function(error) {
+                console.log("user information update failed");
+              });
+            }).catch(function(error) {
+              console.log(error);
+            });
+          }
+        }
+      }).catch((error)=> {
+          console.log(error);
+          Alert.alert(error.message);
+      });
+      // this.props.navigation.navigate("Start"); 
+    }
   }
 
   render() {
@@ -75,17 +116,22 @@ export default class Register extends Component {
                             placeholderTextColor="rgba(255,255,255,0.7)"
                         />
                         <Input
-                            value={this.state.password}
-                            onChangeText={password_confirmation => this.setState({ password_confirmation })}
+                            value={this.state.password_confirmation}
+                            onChangeText={(text) => {
+                              this.setState({
+                                password_confirmation:text
+                              })
+                            }}
                             style={styles.input}
                             placeholder="Confirm Password"
+                            secureTextEntry={true}
                             placeholderTextColor="rgba(255,255,255,0.7)"
                         />
                     </View>
                     <TouchableHighlight onPress={this.onRegisterPress.bind(this)} style={styles.button}>
                         <Text style={styles.buttonText}>Register</Text>
                     </TouchableHighlight>
-                    <TouchableHighlight onPress={()=>this.props.navigation.navigate("Login")} style={styles.button}>
+                    <TouchableHighlight onPress={()=>this.props.navigation.push("Login")} style={styles.button}>
                         <Text style={styles.buttonText}>Login</Text>
                     </TouchableHighlight>
                 </KeyboardAvoidingView>

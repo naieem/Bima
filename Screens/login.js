@@ -7,22 +7,23 @@ import {
   TouchableHighlight,
   Image,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from "react-native";
-import { Container, Content, Form, Item, Input } from 'native-base';
-
+import { Container, Content, Toast, Item, Input } from 'native-base';
+import { auth } from "../config";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      name: "",
       password: "",
-      password_confirmation: ""
+      userInfo:{}
     };
+    this.onRegisterPress=this.onRegisterPress.bind(this);
+    console.log("hello world");
   }
-
   static navigationOptions = {
     headerStyle: {
       backgroundColor: "#16a085",
@@ -30,15 +31,46 @@ export default class Login extends Component {
     }
   };
 
+  componentWillMount(){
+    var user = auth.currentUser;
+    console.log(user);
+    if (user) {
+      if(user.emailVerified){
+        this.props.navigation.navigate("Start");
+      }
+    }
+  }
+
   async onRegisterPress() {
-    // const { email, password, name } = this.state;
-    // console.log(email);
-    // console.log(name);
-    // console.log(password);
+    const { email, password } = this.state;
     // await AsyncStorage.setItem("email", email);
     // await AsyncStorage.setItem("name", name);
     // await AsyncStorage.setItem("password", password);
-    this.props.navigation.navigate("Boiler");
+    auth.signInWithEmailAndPassword(email, password).then(()=>{
+      var user = auth.currentUser;
+      if (user) {
+        console.log(user);
+        if(!user.emailVerified){
+          // Alert.alert("Sorry user is not activated");
+          Toast.show({
+            text: 'Sorry user is not activated',
+            buttonText: 'Okay'
+          });
+          auth.signOut().then(()=>{
+            console.log("Signout succesfull");
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }else{
+          this.props.navigation.navigate("Start");
+        }
+      }
+    }).catch((error)=> {
+      if(error){
+        Alert.alert(error.message);
+      }
+    });
+    // this.props.navigation.navigate("Start");
   }
 
   render() {
@@ -53,8 +85,9 @@ export default class Login extends Component {
                             <View style={{marginTop:200,marginBottom:50}}>
                                 <Input 
                                     value={this.state.name}
-                                    onChangeText={name => this.setState({ name })}
+                                    onChangeText={email => this.setState({ email })}
                                     placeholder="Username"
+                                    keyboardType="email-address"
                                     placeholderTextColor="rgba(255,255,255,0.7)"
                                     style={styles.input}
                                     />
@@ -62,14 +95,15 @@ export default class Login extends Component {
                                     value={this.state.password}
                                     onChangeText={password => this.setState({ password })}
                                     placeholder="Password"
+                                    secureTextEntry={true}
                                     placeholderTextColor="rgba(255,255,255,0.7)"
                                     style={styles.input}
                                     />
                             </View>
-                            <TouchableHighlight style={styles.button} onPress={()=>this.props.navigation.push("Start")}>
+                            <TouchableHighlight style={styles.button} onPress={this.onRegisterPress}>
                                 <Text style={styles.buttonText}>Login</Text>
                             </TouchableHighlight>
-                            <TouchableHighlight onPress={()=>this.props.navigation.navigate("Registration")} style={styles.button}>
+                            <TouchableHighlight onPress={()=>this.props.navigation.push("Registration")} style={styles.button}>
                                 <Text style={styles.buttonText}>Register</Text>
                             </TouchableHighlight>
                     </KeyboardAvoidingView>

@@ -62,17 +62,38 @@ const TabNavigator = createBottomTabNavigator({
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     },
+    navigationOptions: {
+      gesturesEnabled: false,
+    }
   });
 
 const AppNavigator = createStackNavigator({
-  Login:Login,
-  Registration:Registration,
-  Start: TabNavigator,
-  PDetails: PDetails,
-  OrderDetails:OrderDetails
-},
+    Login:{
+      name:"Login",
+      screen:Login
+    },
+    Registration:{
+      name:"Registration",
+      screen:Registration
+    },
+    Start:{
+      name:"TabNavigator",
+      screen:TabNavigator
+    },
+    PDetails: {
+      name:"PDetails",
+      screen:PDetails
+    },
+    OrderDetails:{
+      name:"OrderDetails",
+      screen:OrderDetails
+    }
+  },
   {
     headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false,
+    }
   });
 
 

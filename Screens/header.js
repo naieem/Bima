@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { View, Header, Left, Body, Right, Button, Title, Text } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import { db } from "../config";
+import { db,auth } from "../config";
 class BimaHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalCount:0
+            totalCount:0,
+            userInfo:{}
         };
+        this.singoutUser=this.singoutUser.bind(this);
     }
     componentDidMount() {
         var itemsRef = db.ref('/items');
@@ -24,7 +26,25 @@ class BimaHeader extends Component {
               });
           }
         });
-      }
+        var user = auth.currentUser;
+        if(user){
+          if(user.emailVerified){
+              this.setState({
+                  userInfo:user
+              });
+          }
+        }
+    }
+    singoutUser(){
+        auth.signOut().then(()=>{
+            this.props.navigation.navigate("Login");
+        }).catch((err)=>{
+            Toast.show({
+                text: err.message,
+                buttonText: 'Okay'
+              });
+        });
+    }
     render() {
         return (
             <Header>
@@ -39,7 +59,7 @@ class BimaHeader extends Component {
                     <Title>Bima</Title>
                 </Body>
                 <Right>
-                    <View style={{
+                    {/* <View style={{
                         backgroundColor: 'red',
                         borderRadius: 10,
                         width: 20,
@@ -47,8 +67,11 @@ class BimaHeader extends Component {
                         justifyContent: 'center',
                         alignItems: 'center'
                         }}>
-                    <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{this.state.totalCount}</Text>
-                </View>
+                    <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{this.state.userInfo.displayName}</Text>
+                    </View> */}
+                    <Button hasText transparent>
+                        <Text onPress={this.singoutUser}>Logout</Text>
+                    </Button>
                 </Right>
             </Header>
         );
