@@ -5,12 +5,13 @@ import DatePicker from 'react-native-datepicker';
 import RNPickerSelect from 'react-native-picker-select';
 
 import BimaHeader from "./header";
-import { db } from "../config";
+import { db,auth } from "../config";
 class registration extends Component {
   constructor(props) {
     super(props);
     this.state = {
       errors:[],
+      userInfo:null,
       vehicleInfo:{
         ownername:"",
         address:"",
@@ -178,6 +179,18 @@ class registration extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.saveUser=this.saveUser.bind(this);
+    
+  }
+  componentDidMount(){
+    var user = auth.currentUser;
+    if(user){
+      // console.log(user);
+      if(user.emailVerified){
+        this.setState({
+          userInfo:user
+        });
+      }
+    }
   }
   handleChange(field,text) {
       this.state.vehicleInfo[field]=text;
@@ -201,6 +214,8 @@ class registration extends Component {
       errors:errors
     });
     if(!errors.length){
+      this.state.vehicleInfo['malik']=this.state.userInfo.uid;
+      console.log(this.state.userInfo);
       db.ref('/items').push(this.state.vehicleInfo);
       Alert.alert('Item saved successfully');
       this.setState({

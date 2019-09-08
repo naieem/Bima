@@ -51,11 +51,11 @@ export default class Register extends Component {
             user.sendEmailVerification().then(()=> {
               console.log(user);
               console.log("verification link sent to mail");
-              // Alert.alert("User created succesfully.Please check verification mail");
-              Toast.show({
-                text: 'User created succesfully.Please check verification mail',
-                buttonText: 'Okay'
-              });
+              Alert.alert("User created succesfully.Please check verification mail");
+              // Toast.show({
+              //   text: 'User created succesfully.Please check verification mail',
+              //   buttonText: 'Okay'
+              // });
               user.updateProfile({
                 displayName:this.state.name,
                 isAnonymous:true

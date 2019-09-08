@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View,ImageBackground} from 'react-native'
 import { Container,List, ListItem, Left,Right, Content,Icon } from 'native-base';
-import { db } from "../config";
+import { db,auth } from "../config";
 import BimaHeader from "./header";
 class orderList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        items:[]
+        items:[],
+        userInfo:null
     };
   }
   componentDidMount() {
+    var user = auth.currentUser;
+    if(user){
+      if(user.emailVerified){
+          this.setState({
+              userInfo:user
+          });
+      }
+    }
     var itemsRef = db.ref('/items');
-    itemsRef.on('value', (snapshot)=> {
-    //   var items=snapshot.val();
-    //   console.log(snapshot);
+    itemsRef.orderByChild('malik').equalTo(user.uid).on('value', (snapshot)=> {
       var items = [];
       snapshot.forEach((child) => {
         items.push({

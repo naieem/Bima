@@ -51,11 +51,11 @@ export default class Login extends Component {
       if (user) {
         console.log(user);
         if(!user.emailVerified){
-          // Alert.alert("Sorry user is not activated");
-          Toast.show({
-            text: 'Sorry user is not activated',
-            buttonText: 'Okay'
-          });
+          Alert.alert("Sorry user is not activated");
+          // Toast.show({
+          //   text: 'Sorry user is not activated',
+          //   buttonText: 'Okay'
+          // });
           auth.signOut().then(()=>{
             console.log("Signout succesfull");
           }).catch((err)=>{
