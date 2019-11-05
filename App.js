@@ -7,6 +7,7 @@ import OrderList from "./Screens/orderList";
 import OrderDetails from "./Screens/orderDetails";
 import Registration from "./Screens/registration";
 import Login from "./Screens/login";
+import Bima from "./Screens/bima";
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 
@@ -83,6 +84,10 @@ const AppNavigator = createStackNavigator({
     PDetails: {
       name:"PDetails",
       screen:PDetails
+    },
+    Bima: {
+      name:"Bima",
+      screen:Bima
     },
     OrderDetails:{
       name:"OrderDetails",
