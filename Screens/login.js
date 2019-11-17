@@ -22,7 +22,6 @@ export default class Login extends Component {
       userInfo:{}
     };
     this.onRegisterPress=this.onRegisterPress.bind(this);
-    console.log("hello world");
   }
   static navigationOptions = {
     headerStyle: {
@@ -36,11 +35,10 @@ export default class Login extends Component {
     console.log(user);
     if (user) {
       if(user.emailVerified){
-        this.props.navigation.navigate("Start");
+        this.props.navigation.navigate("MainHome");
       }
     }
   }
-
   async onRegisterPress() {
     const { email, password } = this.state;
     // await AsyncStorage.setItem("email", email);
@@ -62,7 +60,7 @@ export default class Login extends Component {
             console.log(err);
           });
         }else{
-          this.props.navigation.navigate("Start");
+          this.props.navigation.navigate("MainHome");
         }
       }
     }).catch((error)=> {

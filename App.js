@@ -8,6 +8,8 @@ import OrderDetails from "./Screens/orderDetails";
 import Registration from "./Screens/registration";
 import Login from "./Screens/login";
 import Bima from "./Screens/bima";
+import TabHome from "./Screens/tabHome";
+import Lube from "./Screens/lube";
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { Icon } from 'native-base';
 
@@ -31,7 +33,7 @@ import { Icon } from 'native-base';
 console.disableYellowBox = true;
 
 const TabNavigator = createBottomTabNavigator({
-  Home: Home,
+  Home: Bima,
   List:OrderList,
   Order: NewOrder
 },
@@ -77,6 +79,10 @@ const AppNavigator = createStackNavigator({
       name:"Registration",
       screen:Registration
     },
+    MainHome:{
+      name:"MainHome",
+      screen:Home
+    },
     Start:{
       name:"TabNavigator",
       screen:TabNavigator
@@ -92,6 +98,10 @@ const AppNavigator = createStackNavigator({
     OrderDetails:{
       name:"OrderDetails",
       screen:OrderDetails
+    },
+    Lube:{
+      name:"Lube",
+      screen:Lube
     }
   },
   {

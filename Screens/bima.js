@@ -48,11 +48,14 @@ export default class Bima extends Component {
       ]
     };
   }
+  backHome=()=>{
+    this.props.navigation.navigate("MainHome");
+  }
   render() {
     const {motorCycle,privateVehicle}=this.state;
     return (
       <Container style={styles.container}>
-        <BimaHeader back={true}></BimaHeader>
+        <BimaHeader back={true} backFn={this.backHome}></BimaHeader>
         <Content padder>
           <List>
             <ListItem itemDivider>

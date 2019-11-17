@@ -51,12 +51,12 @@ class BimaHeader extends Component {
                 <Left>
                 {this.props.back && 
                     <Button hasText transparent>
-                        <Text onPress={()=>{this.props.navigation.goBack()}}>Back</Text>
+                        <Text onPress={this.props.backFn ? this.props.backFn : ()=>{this.props.navigation.goBack()}}>Back</Text>
                     </Button>
                 }
                 </Left>
                 <Body>
-                    <Title>Bima</Title>
+                    <Title>LuBrima</Title>
                 </Body>
                 <Right>
                     {/* <View style={{
